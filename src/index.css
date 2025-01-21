@@ -66,10 +66,24 @@ button {
 button:hover {
   cursor: pointer;
   margin-top: 2px;
-  background-color: #D8DFE5;
+  background-color: rgb(190, 200, 208);
 }
 
 button:active {
+  margin-top: -1px;
+}
+
+#delete-btn {
+  background-color: #ad476e;
+}
+
+#delete-btn:hover {
+  cursor: pointer;
+  margin-top: 2px;
+  background-color: #bc8ea0;
+}
+
+#delete-btn:active {
   margin-top: -1px;
 }
 
