@@ -1,36 +1,37 @@
 import { useState } from "react";
 import Button from "./components/Button";
-import Country from "./components/Country";
+import MedalList from "./components/MedalList";
+import InputBox from "./components/MedalForm";
 
 const App = () => {
   const [countries, setCountries] = useState([
     {
       id: new Date().getTime(),
-      countryName: "대한민국",
-      gold: 20,
-      silver: 24,
+      countryName: "미국",
+      gold: 24,
+      silver: 12,
       bronze: 40,
     },
     {
       id: new Date().getTime() + 1,
-      countryName: "미국",
-      gold: 26,
-      silver: 50,
-      bronze: 70,
+      countryName: "대한민국",
+      gold: 24,
+      silver: 20,
+      bronze: 14,
     },
     {
       id: new Date().getTime() + 2,
       countryName: "일본",
       gold: 4,
-      silver: 44,
-      bronze: 30,
+      silver: 4,
+      bronze: 0,
     },
     {
       id: new Date().getTime() + 3,
       countryName: "중국",
-      gold: 10,
+      gold: 4,
       silver: 4,
-      bronze: 0,
+      bronze: 3,
     },
   ]);
 
@@ -39,23 +40,29 @@ const App = () => {
   const [silver, setSilver] = useState("");
   const [bronze, setBronze] = useState("");
 
-  // if (countries.length === 0) {
-  //   document.querySelector('.no-data').setAttribute("style", "display:flex;")
-  //   document.querySelector('.table-box').setAttribute("style", "display:none;")
-  // } else {
-  //   document.querySelector('.no-data').setAttribute("style", "display:none;")
-  //   document.querySelector('.table-box').setAttribute("style", "display:flex;")
-  // }
-
   const reset = function () {
     setCountryName("");
     setGlod("");
     setSilver("");
     setBronze("");
-    return
+    return;
+  };
+
+  const verify = function () {
+    //입력 처리의 적정성 검증
+    if (!countryName) {
+      alert("국가이름을 입력해주세요");
+      return;
+    } else if (!gold || !silver || !bronze) {
+      alert("숫자를 입력해주세요");
+      return;
+    } else if (gold < 0 || silver < 0 || bronze < 0 || gold%1 !== 0 || silver%1 !== 0 || bronze%1 !== 0) {
+      alert('숫자는 정수값을 입력해주세요');
+    }
   };
 
   const addCountryHandler = () => {
+    verify();
     const newCountry = {
       id: new Date().getTime(),
       countryName: countryName,
@@ -64,33 +71,20 @@ const App = () => {
       bronze: bronze,
     };
 
-    //입력 처리의 적정성 검증
-    if (!countryName) {
-      alert("국가이름을 입력해주세요!");
-      return;
-    } else if (!gold || !silver || !bronze) {
-      alert("숫자를 입력해주세요!");
-      return;
-    } else if (gold <= 0 || silver <= 0 || bronze <= 0) {
-      alert('"0"이상의 숫자값을 입력해 주세요!')
+    //이미 등록된 국가일 경우 알림창 뜨게 하기 (중복 국가 처리)
+    const addedCountry = countries.find((country) => {
+      // console.log("new", newCountry);
+      return country.countryName === newCountry.countryName;
+    });
+    // console.log("added", addedCountry);
+    if (addedCountry) {
+      alert(`${newCountry.countryName}은(는) 이미 등록된 국가입니다.`);
     } else {
-      //이미 등록된 국가일 경우 알림창 뜨게 하기 (중복 국가 처리)
-      const addedCountry = countries.find((country) => {
-        // console.log("new", newCountry);
-        return country.countryName === newCountry.countryName;
-      });
-      // console.log("added", addedCountry);
-      if (addedCountry) {
-        alert(`${newCountry.countryName}은(는) 이미 등록된 국가입니다.`);
-      } else {
-        setCountries([...countries, newCountry]);
-        reset();
-        return;
-      }
+      setCountries([...countries, newCountry]);
+      reset();
+      return;
     }
   };
-
-  countries.sort((a, b) => b.gold - a.gold);
 
   const deleteCountryHandler = (id) => {
     const newCountryList = countries.filter((country) => country.id !== id);
@@ -98,9 +92,9 @@ const App = () => {
   };
 
   const updateCountryHandler = () => {
+    verify();
     // console.log(countryName);
     const updateCountry = countries.find((c) => c.countryName === countryName);
-
     const updateCountryList = countries.map((c) => {
       if (c.id === updateCountry.id) {
         return {
@@ -115,10 +109,23 @@ const App = () => {
     });
 
     setCountries(updateCountryList);
+    alert(`${updateCountry.countryName} 업데이트 완료`)
     reset();
     return;
   };
 
+   //정렬
+  //  countries.sort((a, b) => b.gold - a.gold);
+    countries.sort(function(a,b){
+      if(+a.gold !== +b.gold) {
+        return b.gold - a.gold
+      } else if(+a.silver !== +b.silver) {
+        return b.silver-a.silver
+      } else {
+        return b.bronze-a.bronze
+      }
+    })
+  
   return (
     <>
       <header>
@@ -127,38 +134,16 @@ const App = () => {
       <main>
         <section className="input-container">
           {/* 인풋부분 */}
-          <div className="input-box">
-            <div>국가명</div>
-            <input
-              value={countryName}
-              type="text"
-              onChange={(e) => setCountryName(e.target.value)}
-            />
-          </div>
-          <div className="input-box">
-            <div>금메달</div>
-            <input
-              value={gold}
-              type="number"
-              onChange={(e) => setGlod(e.target.value)}
-            />
-          </div>
-          <div className="input-box">
-            <div>은메달</div>
-            <input
-              value={silver}
-              type="number"
-              onChange={(e) => setSilver(e.target.value)}
-            />
-          </div>
-          <div className="input-box">
-            <div>동메달</div>
-            <input
-              value={bronze}
-              type="number"
-              onChange={(e) => setBronze(e.target.value)}
-            />
-          </div>
+          <InputBox
+            countryName={countryName}
+            gold={gold}
+            silver={silver}
+            bronze={bronze}
+            setCountryName={setCountryName}
+            setGlod={setGlod}
+            setSilver={setSilver}
+            setBronze={setBronze}
+          />
           <Button onClick={addCountryHandler}> 추가 </Button>
           <Button onClick={updateCountryHandler}> 업데이트 </Button>
         </section>
@@ -179,7 +164,7 @@ const App = () => {
             <tbody>
               {countries.map((country) => {
                 return (
-                  <Country
+                  <MedalList
                     country={country}
                     key={country.id}
                     deleteCountryHandler={deleteCountryHandler}
@@ -201,6 +186,3 @@ const App = () => {
 };
 
 export default App;
-
-
-

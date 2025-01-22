@@ -31,7 +31,7 @@ main {
   padding: 50px;
   margin: 0px auto 40px auto;
   width: 1050px;
-  height: 100vh;
+  min-height: 100vh;
   border-radius: 15px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
@@ -59,11 +59,17 @@ input {
   width: 110px;
   border: #46656F solid 2px;
   transition: all 0.1s;
+  text-align: center;
 }
 
 input:focus {
   outline: #ad476e solid 2px;
   outline-offset: 1px;
+
+}
+
+input::placeholder {
+  text-align: center;
 }
 
 button {
