@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import Button from "./components/Button";
+import Country from "./components/Country";
 
 const App = () => {
   const [countries, setCountries] = useState([
@@ -45,6 +47,14 @@ const App = () => {
   //   document.querySelector('.table-box').setAttribute("style", "display:flex;")
   // }
 
+  const reset = function () {
+    setCountryName("");
+    setGlod("");
+    setSilver("");
+    setBronze("");
+    return
+  };
+
   const addCountryHandler = () => {
     const newCountry = {
       id: new Date().getTime(),
@@ -61,6 +71,8 @@ const App = () => {
     } else if (!gold || !silver || !bronze) {
       alert("숫자를 입력해주세요!");
       return;
+    } else if (gold <= 0 || silver <= 0 || bronze <= 0) {
+      alert('"0"이상의 숫자값을 입력해 주세요!')
     } else {
       //이미 등록된 국가일 경우 알림창 뜨게 하기 (중복 국가 처리)
       const addedCountry = countries.find((country) => {
@@ -72,11 +84,8 @@ const App = () => {
         alert(`${newCountry.countryName}은(는) 이미 등록된 국가입니다.`);
       } else {
         setCountries([...countries, newCountry]);
-        setCountryName('');
-        setGlod('');
-        setSilver('');
-        setBronze('');
-        return
+        reset();
+        return;
       }
     }
   };
@@ -99,20 +108,16 @@ const App = () => {
           gold: gold,
           silver: silver,
           bronze: bronze,
-        }
+        };
       } else {
         return c;
       }
-    })
+    });
 
     setCountries(updateCountryList);
-    setCountryName('');
-    setGlod('');
-    setSilver('');
-    setBronze('');
-    return
+    reset();
+    return;
   };
-
 
   return (
     <>
@@ -121,7 +126,7 @@ const App = () => {
       </header>
       <main>
         <section className="input-container">
-           {/* 인풋부분 */}
+          {/* 인풋부분 */}
           <div className="input-box">
             <div>국가명</div>
             <input
@@ -154,10 +159,12 @@ const App = () => {
               onChange={(e) => setBronze(e.target.value)}
             />
           </div>
-          <button onClick={addCountryHandler}> 추가 </button>
-          <button onClick={updateCountryHandler}> 업데이트 </button>
+          <Button onClick={addCountryHandler}> 추가 </Button>
+          <Button onClick={updateCountryHandler}> 업데이트 </Button>
         </section>
-        <section className={countries.length !== 0 ? "table-box" :"table-box none"}>
+        <section
+          className={countries.length !== 0 ? "table-box" : "table-box none"}
+        >
           {/* 메달순위표시하는 테이블 */}
           <table>
             <thead>
@@ -183,7 +190,9 @@ const App = () => {
           </table>
         </section>
 
-        <section className={countries.length === 0 ? "no-data" : "no-data none"}>
+        <section
+          className={countries.length === 0 ? "no-data" : "no-data none"}
+        >
           아직 추가된 국가가 없습니다. 메달을 추적하세요!
         </section>
       </main>
@@ -193,23 +202,5 @@ const App = () => {
 
 export default App;
 
-function Country(props) {
-  const {countryName, gold, silver, bronze, id} = props.country
 
-  return (
-    <tr>
-      <td>{countryName}</td>
-      <td>{gold}</td>
-      <td>{silver}</td>
-      <td>{bronze}</td>
-      <td>
-        <button
-          id="delete-btn"
-          onClick={() => props.deleteCountryHandler(id)}
-        >
-          삭제
-        </button>
-      </td>
-    </tr>
-  );
-}
+
