@@ -48,7 +48,8 @@ const App = () => {
     return;
   };
 
-  const addCountryHandler = () => {
+  const addCountryHandler = (e) => {
+    e.preventDefault() 
     const newCountry = {
       id: new Date().getTime(),
       countryName: countryName,
@@ -94,13 +95,16 @@ const App = () => {
     setCountries(newCountryList);
   };
 
-  const updateCountryHandler = () => {
+  const updateCountryHandler = (e) => {
+    e.preventDefault() 
+
     const updateCountry = countries.find((c) => c.countryName === countryName);
 
     //존재하지 않는 국가 알림
     if (!updateCountry) {
       alert("존재하지 않는 국가는 업데이트를 할 수 없습니다.");
-    }
+      return
+    } 
 
     const updateCountryList = countries.map((c) => {
       if (c.id === updateCountry.id) {
@@ -115,10 +119,30 @@ const App = () => {
       }
     });
 
-    setCountries(updateCountryList);
-    alert(`${updateCountry.countryName} 업데이트 완료`);
-    reset();
-    return;
+       //입력 처리의 적정성 검증
+       if (!countryName) {
+        alert("국가이름을 입력해주세요");
+        return;
+      } else if (!gold || !silver || !bronze) {
+        alert("숫자를 입력해주세요");
+        return;
+      } else if (
+        gold < 0 ||
+        silver < 0 ||
+        bronze < 0 ||
+        gold % 1 !== 0 ||
+        silver % 1 !== 0 ||
+        bronze % 1 !== 0
+      ) {
+        alert("숫자는 정수값을 입력해주세요");
+        return;
+      } else {
+        setCountries(updateCountryList);
+        alert(`${updateCountry.countryName} 업데이트 완료`);
+        reset();
+        return;
+      }
+
   };
 
   //정렬
