@@ -48,21 +48,7 @@ const App = () => {
     return;
   };
 
-  const verify = function () {
-    //입력 처리의 적정성 검증
-    if (!countryName) {
-      alert("국가이름을 입력해주세요");
-      return;
-    } else if (!gold || !silver || !bronze) {
-      alert("숫자를 입력해주세요");
-      return;
-    } else if (gold < 0 || silver < 0 || bronze < 0 || gold%1 !== 0 || silver%1 !== 0 || bronze%1 !== 0) {
-      alert('숫자는 정수값을 입력해주세요');
-    }
-  };
-
   const addCountryHandler = () => {
-    verify();
     const newCountry = {
       id: new Date().getTime(),
       countryName: countryName,
@@ -70,19 +56,36 @@ const App = () => {
       silver: silver,
       bronze: bronze,
     };
-
-    //이미 등록된 국가일 경우 알림창 뜨게 하기 (중복 국가 처리)
-    const addedCountry = countries.find((country) => {
-      // console.log("new", newCountry);
-      return country.countryName === newCountry.countryName;
-    });
-    // console.log("added", addedCountry);
-    if (addedCountry) {
-      alert(`${newCountry.countryName}은(는) 이미 등록된 국가입니다.`);
-    } else {
-      setCountries([...countries, newCountry]);
-      reset();
+    //입력 처리의 적정성 검증
+    if (!countryName) {
+      alert("국가이름을 입력해주세요");
       return;
+    } else if (!gold || !silver || !bronze) {
+      alert("숫자를 입력해주세요");
+      return;
+    } else if (
+      gold < 0 ||
+      silver < 0 ||
+      bronze < 0 ||
+      gold % 1 !== 0 ||
+      silver % 1 !== 0 ||
+      bronze % 1 !== 0
+    ) {
+      alert("숫자는 정수값을 입력해주세요");
+      return;
+    } else {
+      //이미 등록된 국가일 경우 알림창 뜨게 하기 (중복 국가 처리)
+      const addedCountry = countries.find(
+        (country) => country.countryName === newCountry.countryName
+      );
+      if (addedCountry) {
+        alert(`${newCountry.countryName}은(는) 이미 등록된 국가입니다.`);
+        return;
+      } else {
+        setCountries([...countries, newCountry]);
+        reset();
+        return;
+      }
     }
   };
 
@@ -92,9 +95,13 @@ const App = () => {
   };
 
   const updateCountryHandler = () => {
-    verify();
-    // console.log(countryName);
     const updateCountry = countries.find((c) => c.countryName === countryName);
+
+    //존재하지 않는 국가 알림
+    if (!updateCountry) {
+      alert("존재하지 않는 국가는 업데이트를 할 수 없습니다.");
+    }
+
     const updateCountryList = countries.map((c) => {
       if (c.id === updateCountry.id) {
         return {
@@ -109,30 +116,30 @@ const App = () => {
     });
 
     setCountries(updateCountryList);
-    alert(`${updateCountry.countryName} 업데이트 완료`)
+    alert(`${updateCountry.countryName} 업데이트 완료`);
     reset();
     return;
   };
 
-   //정렬
+  //정렬
   //  countries.sort((a, b) => b.gold - a.gold);
-    countries.sort(function(a,b){
-      if(+a.gold !== +b.gold) {
-        return b.gold - a.gold
-      } else if(+a.silver !== +b.silver) {
-        return b.silver-a.silver
-      } else {
-        return b.bronze-a.bronze
-      }
-    })
-  
+  countries.sort(function (a, b) {
+    if (+a.gold !== +b.gold) {
+      return b.gold - a.gold;
+    } else if (+a.silver !== +b.silver) {
+      return b.silver - a.silver;
+    } else {
+      return b.bronze - a.bronze;
+    }
+  });
+
   return (
     <>
       <header>
         <h1> 2025 Sparta Olympic </h1>
       </header>
       <main>
-        <section className="input-container">
+        <section id="input-container">
           {/* 인풋부분 */}
           <InputBox
             countryName={countryName}
@@ -144,8 +151,11 @@ const App = () => {
             setSilver={setSilver}
             setBronze={setBronze}
           />
-          <Button onClick={addCountryHandler}> 추가 </Button>
-          <Button onClick={updateCountryHandler}> 업데이트 </Button>
+          <div>
+            {" "}
+            <Button onClick={addCountryHandler}> 추가 </Button>
+            <Button onClick={updateCountryHandler}> 업데이트 </Button>{" "}
+          </div>
         </section>
         <section
           className={countries.length !== 0 ? "table-box" : "table-box none"}
@@ -157,7 +167,7 @@ const App = () => {
                 <th>국가명</th>
                 <th>금메달</th>
                 <th>은메달</th>
-                <th>동미달</th>
+                <th>동메달</th>
                 <th>액션</th>
               </tr>
             </thead>
