@@ -72,6 +72,11 @@ const App = () => {
         alert(`${newCountry.countryName}은(는) 이미 등록된 국가입니다.`);
       } else {
         setCountries([...countries, newCountry]);
+        setCountryName('');
+        setGlod('');
+        setSilver('');
+        setBronze('');
+        return
       }
     }
   };
@@ -85,7 +90,27 @@ const App = () => {
 
   const updateCountryHandler = () => {
     // console.log(countryName);
+    const updateCountry = countries.find((c) => c.countryName === countryName);
 
+    const updateCountryList = countries.map((c) => {
+      if (c.id === updateCountry.id) {
+        return {
+          ...c,
+          gold: gold,
+          silver: silver,
+          bronze: bronze,
+        }
+      } else {
+        return c;
+      }
+    })
+
+    setCountries(updateCountryList);
+    setCountryName('');
+    setGlod('');
+    setSilver('');
+    setBronze('');
+    return
   };
 
 
@@ -130,7 +155,7 @@ const App = () => {
             />
           </div>
           <button onClick={addCountryHandler}> 추가 </button>
-          <button onClick={updateCountryHandler()}> 업데이트 </button>
+          <button onClick={updateCountryHandler}> 업데이트 </button>
         </section>
         <section className={countries.length !== 0 ? "table-box" :"table-box none"}>
           {/* 메달순위표시하는 테이블 */}
@@ -169,16 +194,18 @@ const App = () => {
 export default App;
 
 function Country(props) {
+  const {countryName, gold, silver, bronze, id} = props.country
+
   return (
     <tr>
-      <td>{props.country.countryName}</td>
-      <td>{props.country.gold}</td>
-      <td>{props.country.silver}</td>
-      <td>{props.country.bronze}</td>
+      <td>{countryName}</td>
+      <td>{gold}</td>
+      <td>{silver}</td>
+      <td>{bronze}</td>
       <td>
         <button
           id="delete-btn"
-          onClick={() => props.deleteCountryHandler(props.country.id)}
+          onClick={() => props.deleteCountryHandler(id)}
         >
           삭제
         </button>
