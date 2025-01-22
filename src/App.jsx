@@ -37,6 +37,14 @@ const App = () => {
   const [silver, setSilver] = useState("");
   const [bronze, setBronze] = useState("");
 
+  // if (countries.length === 0) {
+  //   document.querySelector('.no-data').setAttribute("style", "display:flex;")
+  //   document.querySelector('.table-box').setAttribute("style", "display:none;")
+  // } else {
+  //   document.querySelector('.no-data').setAttribute("style", "display:none;")
+  //   document.querySelector('.table-box').setAttribute("style", "display:flex;")
+  // }
+
   const addCountryHandler = () => {
     const newCountry = {
       id: new Date().getTime(),
@@ -46,7 +54,7 @@ const App = () => {
       bronze: bronze,
     };
 
-    //입력 시, 적정성 검증
+    //입력 처리의 적정성 검증
     if (!countryName) {
       alert("국가이름을 입력해주세요!");
       return;
@@ -75,6 +83,12 @@ const App = () => {
     setCountries(newCountryList);
   };
 
+  const updateCountryHandler = () => {
+    // console.log(countryName);
+
+  };
+
+
   return (
     <>
       <header>
@@ -82,6 +96,7 @@ const App = () => {
       </header>
       <main>
         <section className="input-container">
+           {/* 인풋부분 */}
           <div className="input-box">
             <div>국가명</div>
             <input
@@ -115,9 +130,9 @@ const App = () => {
             />
           </div>
           <button onClick={addCountryHandler}> 추가 </button>
-          <button> 업데이트 </button>
+          <button onClick={updateCountryHandler()}> 업데이트 </button>
         </section>
-        <section className="table-box">
+        <section className={countries.length !== 0 ? "table-box" :"table-box none"}>
           {/* 메달순위표시하는 테이블 */}
           <table>
             <thead>
@@ -143,7 +158,7 @@ const App = () => {
           </table>
         </section>
 
-        <section className="no-data">
+        <section className={countries.length === 0 ? "no-data" : "no-data none"}>
           아직 추가된 국가가 없습니다. 메달을 추적하세요!
         </section>
       </main>
