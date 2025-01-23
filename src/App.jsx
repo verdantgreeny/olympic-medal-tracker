@@ -4,7 +4,7 @@ import InputBox from "./components/MedalForm";
 import Radio from "./components/Radio";
 
 const App = () => {
-  const [countries, setCountries] = useState(saveCountires);
+  const [countries, setCountries] = useState(saveCountries);
   const [countryName, setCountryName] = useState(""); //유저의 입력값을 담을 상태
   const [gold, setGold] = useState("");
   const [silver, setSilver] = useState("");
@@ -17,20 +17,19 @@ const App = () => {
     localStorage.setItem("countries", JSON.stringify(countries));
   }, [countries]);
 
-  function saveCountires() {
-    let savedCoutires = JSON.parse(localStorage.getItem("countries"));
-    return savedCoutires || [];
+  function saveCountries() {
+    let savedCountires = JSON.parse(localStorage.getItem("countries"));
+    return savedCountires || [];
   }
 
   //금은동수 총메달수 정렬
   const [selectRadio, setSelectRadio] = useState("1");
   const handleChange = (e) => {
-    const value = e.target.value;
-    setSelectRadio(value);
+    return setSelectRadio(e.target.value);
   };
 
   const sortMedals = () => {
-    countries.sort(function (a, b) {
+    countries.sort((a, b) => {
       if (+a.gold !== +b.gold) {
         return b.gold - a.gold;
       } else if (+a.silver !== +b.silver) {
@@ -39,7 +38,6 @@ const App = () => {
         return b.bronze - a.bronze;
       }
     });
-
     return setCountries([...countries]);
   };
 
@@ -47,6 +45,14 @@ const App = () => {
     countries.sort((a, b) => b.total - a.total);
     return setCountries([...countries]);
   };
+
+  useEffect(() => {
+    if (selectRadio === "1") {
+      sortMedals();
+    } else {
+      sortTotalMedals();
+    }
+  }, [sortMedals]);
 
   return (
     <>
@@ -73,7 +79,7 @@ const App = () => {
             value="1"
             checked={selectRadio === "1"}
             onChange={handleChange}
-            onClick={sortMedals}
+            
           >
             {" "}
             금은동순 정렬{" "}
@@ -83,7 +89,7 @@ const App = () => {
             value="2"
             checked={selectRadio === "2"}
             onChange={handleChange}
-            onClick={sortTotalMedals}
+          
           >
             {" "}
             총메달순 정렬{" "}
