@@ -10,12 +10,15 @@ const MedalList = function (props) {
     setCountries(newCountryList);
   };
 
+
+
   return (
     <tr>
       <td>{countryName}</td>
       <td>{gold}</td>
       <td>{silver}</td>
       <td>{bronze}</td>
+      <td>{Number(gold)+Number(silver)+Number(bronze)}</td>
       <td>
         <Button id="delete-btn" onClick={() => deleteCountryHandler(id)}>
           삭제

@@ -22,6 +22,44 @@ const App = () => {
     return savedCoutires || [];
   }
 
+  // // 금은동 순 정렬
+  // countries.sort(function (a, b) {
+  //   if (+a.gold !== +b.gold) {
+  //     return b.gold - a.gold;
+  //   } else if (+a.silver !== +b.silver) {
+  //     return b.silver - a.silver;
+  //   } else {
+  //     return b.bronze - a.bronze;
+  //   }
+  // });
+
+  const sortMedals = (e) => {
+    e.preventDefault();
+
+      console.log("aaa")
+      countries.sort(function (a, b) {
+        if (+a.gold !== +b.gold) {
+          return b.gold - a.gold;
+        } else if (+a.silver !== +b.silver) {
+          return b.silver - a.silver;
+        } else {
+          return b.bronze - a.bronze;
+        }
+      });
+      return setCountries([...countries])
+  };
+
+  const sortTotalMedals = (e) => {
+    e.preventDefault();
+      console.log("bbbb")
+      countries.sort((a,b)=>{
+        console.log(a.total)
+        return b.total-a.total
+      }
+      );
+      return setCountries([...countries])
+  };
+
   return (
     <>
       <header>
@@ -42,7 +80,8 @@ const App = () => {
             setSilver={setSilver}
             setBronze={setBronze}
           />
-          <Radio countries={countries} />
+          <Radio name="sort" value="1"  onClick={sortMedals} defaultChecked> 금은동순 정렬 </Radio>
+          <Radio name="sort" value="2"  onClick={sortTotalMedals}> 총메달순 정렬 </Radio>
         </section>
         <section
           className={countries.length !== 0 ? "table-box" : "table-box none"}
@@ -55,6 +94,7 @@ const App = () => {
                 <th>금메달</th>
                 <th>은메달</th>
                 <th>동메달</th>
+                <th> 총합 </th>
                 <th>액션</th>
               </tr>
             </thead>
@@ -62,8 +102,8 @@ const App = () => {
               {countries.map((country) => {
                 return (
                   <MedalList
-                  countries={countries}
-                  setCountries={setCountries}
+                    countries={countries}
+                    setCountries={setCountries}
                     country={country}
                     key={country.id}
                   />

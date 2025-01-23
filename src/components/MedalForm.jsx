@@ -14,7 +14,7 @@ const InputBox = function (props) {
     setSilver,
     setBronze
   } = props;
-  
+
   const reset = function () {
     setCountryName("");
     setGlod("");
@@ -48,6 +48,7 @@ const InputBox = function (props) {
   };
 
 
+
   const addCountryHandler = (e) => {
     e.preventDefault();
     const newCountry = {
@@ -56,8 +57,9 @@ const InputBox = function (props) {
       gold: gold,
       silver: silver,
       bronze: bronze,
+      total: Number(gold)+Number(silver)+Number(bronze)
     };
-
+    
     if (!verify(countryName, gold, silver, bronze)) {
       reset()
       return;

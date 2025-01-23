@@ -117,6 +117,8 @@ button:before {
 
 #delete-btn {
   background-color: #ad476e;
+  width: 80px;
+  height: 35px;
 }
 
 #delete-btn:hover {
@@ -140,13 +142,18 @@ button:before {
 }
 
 th {
-padding: 10px 60px;
+padding: 10px 20px;
+width: 120px;
 background-color:  #D8DFE5;
+
 }
 
 td {
-  padding: 10px 60px;
+  padding: 10px 20px;
+  max-width: 120px;
   background-color: #F5F5F3;
+  text-overflow: ellipsis;
+  overflow: hidden;
   height: 45px;
 }
 
