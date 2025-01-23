@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./Button";
 
 const InputBox = function (props) {
   const {
@@ -10,6 +11,8 @@ const InputBox = function (props) {
     setGlod,
     setSilver,
     setBronze,
+    addCountryHandler,
+    updateCountryHandler
   } = props;
 
   return (
@@ -49,6 +52,10 @@ const InputBox = function (props) {
           placeholder="   동메달 숫자"
           onChange={(e) => setBronze(e.target.value)}
         />
+      </div>
+      <div>
+            <Button type="submit" onClick={addCountryHandler}> 추가 </Button>
+            <Button type="submit" onClick={updateCountryHandler}> 업데이트 </Button>
       </div>
     </form>
   );

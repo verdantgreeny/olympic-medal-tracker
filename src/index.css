@@ -36,15 +36,9 @@ main {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-#input-container {
-  height: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 .input-form {
-  padding: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: row;
   justify-content: center;
