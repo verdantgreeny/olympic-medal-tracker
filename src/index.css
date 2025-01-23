@@ -61,15 +61,21 @@ label {
   flex-direction: row;
   justify-content: end;
   align-items: center;
-  margin-right: 60px;
+  margin: 0px 60px 0px 860px;
+  width: 120px;
+}
+
+label:hover {
+  color: #ad476e;
 }
 
 label>input {
-width: 30px;
+width: 10px;
+margin: 0px 10px;
 }
 
 label>input:focus {
-  outline: none;
+  outline-style: dotted;
 }
 
 input {
@@ -82,7 +88,6 @@ input {
 input:focus {
   outline: #ad476e solid 2px;
   outline-offset: 1px;
-
 }
 
 input::placeholder {
