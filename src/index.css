@@ -56,6 +56,22 @@ main {
   border-radius: 5px;
 }
 
+label {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  margin-right: 60px;
+}
+
+label>input {
+width: 30px;
+}
+
+label>input:focus {
+  outline: none;
+}
+
 input {
   width: 140px;
   border: #46656F solid 2px;

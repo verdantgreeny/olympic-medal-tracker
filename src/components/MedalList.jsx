@@ -3,6 +3,12 @@ import Button from "./Button";
 
 const MedalList = function (props) {
   const { countryName, gold, silver, bronze, id } = props.country;
+  const { countries, setCountries} = props;
+
+  const deleteCountryHandler = (id) => {
+    const newCountryList = countries.filter((country) => country.id !== id);
+    setCountries(newCountryList);
+  };
 
   return (
     <tr>
@@ -11,7 +17,7 @@ const MedalList = function (props) {
       <td>{silver}</td>
       <td>{bronze}</td>
       <td>
-        <Button id="delete-btn" onClick={() => props.deleteCountryHandler(id)}>
+        <Button id="delete-btn" onClick={() => deleteCountryHandler(id)}>
           삭제
         </Button>
       </td>
