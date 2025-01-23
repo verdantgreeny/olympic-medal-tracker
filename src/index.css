@@ -75,7 +75,7 @@ margin: 0px 10px;
 }
 
 label>input:focus {
-  outline-style: dotted;
+  outline-style: none;
 }
 
 input {

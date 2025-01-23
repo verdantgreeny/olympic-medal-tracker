@@ -10,14 +10,14 @@ const InputBox = function (props) {
     silver,
     bronze,
     setCountryName,
-    setGlod,
+    setGold,
     setSilver,
-    setBronze
+    setBronze,
   } = props;
 
   const reset = function () {
     setCountryName("");
-    setGlod("");
+    setGold("");
     setSilver("");
     setBronze("");
     return;
@@ -25,7 +25,8 @@ const InputBox = function (props) {
 
   //입력 처리의 적정성 검증
   const verify = function (countryName, gold, silver, bronze) {
-    if (!countryName ||/\d/.test(countryName)) { ///\d/  : 숫자 하나를 뜻하는 정규식 , test(str): str에 대해 정규식 패턴을 확인해 true/false 여부를 반환
+    if (!countryName || /\d/.test(countryName)) {
+      ///\d/  : 숫자 하나를 뜻하는 정규식 , test(str): str에 대해 정규식 패턴을 확인해 true/false 여부를 반환
       alert("국가이름을 입력해주세요");
       return false;
     } else if (!gold || !silver || !bronze) {
@@ -54,11 +55,11 @@ const InputBox = function (props) {
       gold: gold,
       silver: silver,
       bronze: bronze,
-      total: Number(gold)+Number(silver)+Number(bronze)
+      total: Number(gold) + Number(silver) + Number(bronze),
     };
-    
+
     if (!verify(countryName, gold, silver, bronze)) {
-      reset()
+      reset();
       return;
     }
 
@@ -99,7 +100,7 @@ const InputBox = function (props) {
     });
 
     if (!verify(countryName, gold, silver, bronze)) {
-      reset()
+      reset();
       return;
     }
     setCountries(updateCountryList);
@@ -125,7 +126,7 @@ const InputBox = function (props) {
           value={gold}
           type="number"
           placeholder="   금메달 숫자"
-          onChange={(e) => setGlod(e.target.value)}
+          onChange={(e) => setGold(e.target.value)}
         />
       </div>
       <div className="input-box">
@@ -147,8 +148,14 @@ const InputBox = function (props) {
         />
       </div>
       <div>
-            <Button type="submit" onClick={addCountryHandler}> 추가 </Button>
-            <Button type="submit" onClick={updateCountryHandler}> 업데이트 </Button>
+        <Button type="submit" onClick={addCountryHandler}>
+          {" "}
+          추가{" "}
+        </Button>
+        <Button type="submit" onClick={updateCountryHandler}>
+          {" "}
+          업데이트{" "}
+        </Button>
       </div>
     </form>
   );

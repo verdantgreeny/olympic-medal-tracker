@@ -1,13 +1,18 @@
 import React from "react";
 
-const Radio = ({children,name,defaultChecked,onClick,value}) => {
-
+const Radio = ({ children, name, onClick, value, checked, onChange }) => {
   return (
-    <>
-      <label>
-        <input type="radio" name={name} onClick={onClick} defaultChecked={defaultChecked} value={value} /> {children}
-      </label>
-    </>
+    <label>
+      <input
+        type="radio"
+        name={name}
+        onClick={onClick}
+        value={value}
+        checked={checked}
+        onChange={onChange}
+      />{" "}
+      {children}
+    </label>
   );
 };
 

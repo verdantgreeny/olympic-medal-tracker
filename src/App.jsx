@@ -6,7 +6,7 @@ import Radio from "./components/Radio";
 const App = () => {
   const [countries, setCountries] = useState(saveCountires);
   const [countryName, setCountryName] = useState(""); //유저의 입력값을 담을 상태
-  const [gold, setGlod] = useState("");
+  const [gold, setGold] = useState("");
   const [silver, setSilver] = useState("");
   const [bronze, setBronze] = useState("");
 
@@ -23,24 +23,29 @@ const App = () => {
   }
 
   //금은동수 총메달수 정렬
-  const sortMedals = (e) => {
-    e.preventDefault();
-      countries.sort(function (a, b) {
-        if (+a.gold !== +b.gold) {
-          return b.gold - a.gold;
-        } else if (+a.silver !== +b.silver) {
-          return b.silver - a.silver;
-        } else {
-          return b.bronze - a.bronze;
-        }
-      });
-      return setCountries([...countries])
+  const [selectRadio, setSelectRadio] = useState("1");
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSelectRadio(value);
   };
 
-  const sortTotalMedals = (e) => {
-    e.preventDefault();
-      countries.sort((a,b)=> b.total-a.total);
-      return setCountries([...countries])
+  const sortMedals = () => {
+    countries.sort(function (a, b) {
+      if (+a.gold !== +b.gold) {
+        return b.gold - a.gold;
+      } else if (+a.silver !== +b.silver) {
+        return b.silver - a.silver;
+      } else {
+        return b.bronze - a.bronze;
+      }
+    });
+
+    return setCountries([...countries]);
+  };
+
+  const sortTotalMedals = () => {
+    countries.sort((a, b) => b.total - a.total);
+    return setCountries([...countries]);
   };
 
   return (
@@ -59,12 +64,30 @@ const App = () => {
             silver={silver}
             bronze={bronze}
             setCountryName={setCountryName}
-            setGlod={setGlod}
+            setGold={setGold}
             setSilver={setSilver}
             setBronze={setBronze}
           />
-          <Radio name="sort" value={1} onClick={sortMedals}  defaultChecked> 금은동순 정렬 </Radio>
-          <Radio  name="sort" value={2} onClick={sortTotalMedals}> 총메달순 정렬 </Radio>
+          <Radio
+            name="medalSort"
+            value="1"
+            checked={selectRadio === "1"}
+            onChange={handleChange}
+            onClick={sortMedals}
+          >
+            {" "}
+            금은동순 정렬{" "}
+          </Radio>
+          <Radio
+            name="medalSort"
+            value="2"
+            checked={selectRadio === "2"}
+            onChange={handleChange}
+            onClick={sortTotalMedals}
+          >
+            {" "}
+            총메달순 정렬{" "}
+          </Radio>
         </section>
         <section
           className={countries.length !== 0 ? "table-box" : "table-box none"}
