@@ -23,7 +23,6 @@ const InputBox = function (props) {
     return;
   };
 
-
   //입력 처리의 적정성 검증
   const verify = function (countryName, gold, silver, bronze) {
     if (!countryName ||/\d/.test(countryName)) { ///\d/  : 숫자 하나를 뜻하는 정규식 , test(str): str에 대해 정규식 패턴을 확인해 true/false 여부를 반환
@@ -46,8 +45,6 @@ const InputBox = function (props) {
       return true;
     }
   };
-
-
 
   const addCountryHandler = (e) => {
     e.preventDefault();
@@ -82,15 +79,12 @@ const InputBox = function (props) {
 
   const updateCountryHandler = (e) => {
     e.preventDefault();
-
     const updateCountry = countries.find((c) => c.countryName === countryName);
-
     //존재하지 않는 국가 알림
     if (!updateCountry) {
       alert("존재하지 않는 국가는 업데이트를 할 수 없습니다.");
       return;
     }
-
     const updateCountryList = countries.map((c) => {
       if (c.id === updateCountry.id) {
         return {
@@ -108,13 +102,11 @@ const InputBox = function (props) {
       reset()
       return;
     }
-
     setCountries(updateCountryList);
     alert(`${updateCountry.countryName} 업데이트 완료`);
     reset();
     return;
   };
-
 
   return (
     <form className="input-form">

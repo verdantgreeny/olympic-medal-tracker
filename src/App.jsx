@@ -22,6 +22,7 @@ const App = () => {
     return savedCoutires || [];
   }
 
+  //금은동수 총메달수 정렬
   const sortMedals = (e) => {
     e.preventDefault();
       countries.sort(function (a, b) {
@@ -62,8 +63,8 @@ const App = () => {
             setSilver={setSilver}
             setBronze={setBronze}
           />
-          <Radio name="sort" value="1" onClick={sortMedals}> 금은동순 정렬 </Radio>
-          <Radio  name="sort" value="2" onClick={sortTotalMedals}> 총메달순 정렬 </Radio>
+          <Radio name="sort" value={1} onClick={sortMedals}  defaultChecked> 금은동순 정렬 </Radio>
+          <Radio  name="sort" value={2} onClick={sortTotalMedals}> 총메달순 정렬 </Radio>
         </section>
         <section
           className={countries.length !== 0 ? "table-box" : "table-box none"}
