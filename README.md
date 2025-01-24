@@ -61,15 +61,16 @@
 ```markdown
 📁
 |- src/
-|   |- index.html
-|   |- global.css
+|   |- App.jsx
+|   |- index.css
 |   |
-|   |- member/
-|   |- guestbook/ # 도메인 단위로 폴더 분리
+|   |- components/
+|   |   |- Button.jsx
+|   |   |- MedalForm.jsx
+|   |   |- MedalList.jsx
+|   |   |- Radio.jsx
 |
-|- layout/
-    |-header/
-    |-footer/
+
 ```
 
 <br />
