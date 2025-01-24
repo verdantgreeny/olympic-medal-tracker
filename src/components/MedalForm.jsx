@@ -1,19 +1,16 @@
-import React from "react";
+import {useState} from "react";
 import Button from "./Button";
 
 const InputBox = function (props) {
   const {
     countries,
-    setCountries,
-    countryName,
-    gold,
-    silver,
-    bronze,
-    setCountryName,
-    setGold,
-    setSilver,
-    setBronze,
+    setCountries
   } = props;
+
+  const [countryName, setCountryName] = useState(""); //입력값을 담을 상태
+  const [gold, setGold] = useState("");
+  const [silver, setSilver] = useState("");
+  const [bronze, setBronze] = useState("");
 
   const reset = function () {
     setCountryName("");
