@@ -25,8 +25,8 @@ const InputBox = function (props) {
 
   //입력 처리의 적정성 검증
   const verify = function (countryName, gold, silver, bronze) {
-    if (!countryName || /\d/.test(countryName)) {
-      ///\d/  : 숫자 하나를 뜻하는 정규식 , test(str): str에 대해 정규식 패턴을 확인해 true/false 여부를 반환
+    if (!countryName || /\d/.test(countryName)) { //!Number(countryName)은 중간 숫자를 인지 못함
+      ///\d/  : 숫자 하나를 뜻하는 정규식 , test(str): str에 대해 정규식 패턴을 확인해 true/false 여부를 반환 
       alert("국가이름을 입력해주세요");
       return false;
     } else if (!gold || !silver || !bronze) {

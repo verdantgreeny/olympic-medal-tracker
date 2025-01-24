@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap");
 
 * {
   margin: 0;
@@ -9,33 +9,32 @@
 }
 
 body {
-  background-color: #D8DFE5;
+  background-color: #d8dfe5;
 }
 
 header {
   /* background-color: #46656F; */
-  background-image: url('./img/olympic-rings.png');
+  background-image: url("./img/olympic-rings.png");
   background-position: center;
   background-size: 60%;
   background-repeat: no-repeat;
 
-  color: #01070A;
-  text-shadow: -1px 0 #D8DFE5, 0 1px #D8DFE5, 1px 0 #D8DFE5, 0 -1px #D8DFE5;
+  color: #01070a;
+  text-shadow: -1px 0 #d8dfe5, 0 1px #d8dfe5, 1px 0 #d8dfe5, 0 -1px #d8dfe5;
   text-align: center;
-  padding: 70px 0px;
+  padding: 75px 0px;
   font-size: 28px;
 }
 
 main {
-  background-color: #FBFBFB;
+  background-color: #fbfbfb;
   padding: 50px;
   margin: 0px auto 40px auto;
   width: 1050px;
   min-height: 100vh;
   border-radius: 15px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-
 
 .input-form {
   padding: 20px;
@@ -47,11 +46,11 @@ main {
   font-size: 22px;
 }
 
-.input-box{
+.input-box {
   padding: 10px;
 }
 
-.input-box>input{
+.input-box > input {
   padding: 5px;
   border-radius: 5px;
 }
@@ -61,7 +60,7 @@ label {
   flex-direction: row;
   justify-content: end;
   align-items: center;
-  margin: 0px 60px 0px 860px;
+  margin: 0px 60px 0px 882px;
   width: 120px;
 }
 
@@ -69,18 +68,18 @@ label:hover {
   color: #ad476e;
 }
 
-label>input {
-width: 10px;
-margin: 0px 10px;
+label > input {
+  width: 10px;
+  margin: 0px 10px;
 }
 
-label>input:focus {
+label > input:focus {
   outline-style: none;
 }
 
 input {
   width: 140px;
-  border: #46656F solid 2px;
+  border: #46656f solid 2px;
   transition: all 0.1s;
   text-align: center;
 }
@@ -98,8 +97,8 @@ button {
   margin-left: 10px;
   width: 100px;
   height: 40px;
-  color: #F5F5F3;
-  background-color: #46656F;
+  color: #f5f5f3;
+  background-color: #46656f;
   border-radius: 5px;
   border: none;
   font-size: 16px;
@@ -108,11 +107,11 @@ button {
 
 button:hover {
   cursor: pointer;
-  background-color: #8FABB7;
-  box-shadow:  2px 2px 3px 0 rgba(255,255,255,.5),
-  -2px -2px 3px 0 rgba(116, 125, 136, .5), 
-inset -2px -2px 3px 0 rgba(255,255,255,.2),
-inset 2px 2px 3px 0 rgba(0, 0, 0, .4);
+  background-color: #8fabb7;
+  box-shadow: 1px 1px 2px 0 rgba(255, 255, 255, 0.5),
+    -1px -1px 2px 0 rgba(116, 125, 136, 0.5),
+    inset -1px -1px 2px 0 rgba(255, 255, 255, 0.2),
+    inset 1px 1px 2px 0 rgba(0, 0, 0, 0.4);
 }
 
 button:before {
@@ -143,22 +142,26 @@ button:before {
   align-items: center;
   text-align: center;
   font-size: 20px;
-  padding: 20px;
+  padding: 0px 20px;
 }
 
 th {
-padding: 10px 20px;
-width: 120px;
-background-color:  #D8DFE5;
+  padding: 10px 20px;
+  width: 120px;
+  background-color: #d8dfe5;
 }
 
 td {
   padding: 10px 20px;
   max-width: 120px;
-  background-color: #F5F5F3;
+  background-color: #f5f5f3;
   text-overflow: ellipsis;
   overflow: hidden;
   height: 45px;
+}
+
+tr:nth-child(even) td {
+  background-color: #fbfbfb;
 }
 
 .no-data {

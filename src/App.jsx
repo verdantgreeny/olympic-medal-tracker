@@ -5,13 +5,13 @@ import Radio from "./components/Radio";
 
 const App = () => {
   const [countries, setCountries] = useState(saveCountries);
-  const [countryName, setCountryName] = useState(""); //유저의 입력값을 담을 상태
+  const [countryName, setCountryName] = useState(""); //입력값을 담을 상태
   const [gold, setGold] = useState("");
   const [silver, setSilver] = useState("");
   const [bronze, setBronze] = useState("");
 
   //로컬스토리지
-  //useEffect : sideEffect를 처리하기 위해 사용, 매번 컴포넌트가 렌더링 될 때 특정 조건에 의존하여 수행되며, 컴포넌트가 최대한 순수 함수를 유지할 수 있도록 도와주는 함수
+  //useEffect : sideEffect를 처리하기 위해 사용, 매번 컴포넌트가 렌더링 될 때 특정 조건에 의존하여 수행되며, 컴포넌트가 최대한 순수 함수를 유지할 수 있도록 도와주는 함수 
   //sideEffect: 함수 내 특정 동작이 함수 외부에 영향을 끼쳐, 프로그램의 동작을 이해하기 어렵게 만드는 행위 (서버와의 통신, setTimeout, setInterval, 리액트 외부와의 상호작용)
   useEffect(() => {
     localStorage.setItem("countries", JSON.stringify(countries));
@@ -25,7 +25,12 @@ const App = () => {
   //금은동수 총메달수 정렬
   const [selectRadio, setSelectRadio] = useState("1");
   const handleChange = (e) => {
-    return setSelectRadio(e.target.value);
+    setSelectRadio(e.target.value);
+    if (selectRadio === "1") {
+      sortMedals();
+    } else {
+      sortTotalMedals()
+    }  
   };
 
   const sortMedals = () => {
@@ -46,13 +51,6 @@ const App = () => {
     return setCountries([...countries]);
   };
 
-  useEffect(() => {
-    if (selectRadio === "1") {
-      sortMedals();
-    } else {
-      sortTotalMedals();
-    }
-  }, [sortMedals]);
 
   return (
     <>
