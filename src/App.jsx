@@ -17,29 +17,32 @@ const App = () => {
     return savedCountires || [];
   }
 
-  //금은동수 총메달수 정렬
+  //정렬 옵션 - 원했던 구현 실패
   const [selectRadio, setSelectRadio] = useState("1");
-  const handleChange = (e) => {
-    return setSelectRadio(e.target.value);
+  const handleChange = (e) => { 
+    setSelectRadio(e.target.value);
+    changeSortOption();
+    return
   }
 
-  useEffect(()=>{ 
-    console.log(selectRadio)
-    if (selectRadio === "1") { 
-      sortMedals(); 
-    } else {
-      sortTotalMedals()   
-    }  
-  },[selectRadio])
-
-  // const changeSortOption = () => {
-  //   console.log(selectRadio);
+  // useEffect(()=>{  //[selectRadio]를 [selectRadio,countries]로 바꾸면 원했던 구현결과를 얻지만 무한루프에 빠짐
   //   if (selectRadio === "1") { 
-  //     sortTotalMedals()   
-  //   } else {
   //     sortMedals(); 
+  //     return 
+  //   } else {
+  //     sortTotalMedals(); 
+  //     return 
   //   }  
-  // };
+  // },[selectRadio])
+
+  const changeSortOption = () => {
+    console.log(selectRadio);
+    if (selectRadio === "1") { 
+      sortTotalMedals()   
+    } else {
+      sortMedals(); 
+    }  
+  };
  
   const sortMedals = () => {
     countries.sort((a, b) => {
@@ -58,7 +61,6 @@ const App = () => {
     countries.sort((a, b) => b.total - a.total);
     return setCountries([...countries]);
   };
-
 
   return (
     <>

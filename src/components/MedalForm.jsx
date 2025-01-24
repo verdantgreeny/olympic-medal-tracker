@@ -57,7 +57,7 @@ const InputBox = function (props) {
 
     if (!verify(countryName, gold, silver, bronze)) {
       reset();
-      return;
+      return false;
     }
 
     //이미 등록된 국가일 경우 알림창 뜨게 하기 (중복 국가 처리)
@@ -66,12 +66,12 @@ const InputBox = function (props) {
     );
     if (addedCountry) {
       alert(`${newCountry.countryName}은(는) 이미 등록된 국가입니다.`);
-      return;
+      return false;
     } else {
       setCountries([...countries, newCountry]);
       alert(`"${newCountry.countryName}" 등록`);
       reset();
-      return;
+      return false ;
     }
   };
 
@@ -105,6 +105,9 @@ const InputBox = function (props) {
     reset();
     return;
   };
+
+
+
 
   return (
     <form className="input-form">
