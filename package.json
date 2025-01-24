@@ -2,14 +2,18 @@
   "name": "olympic-medal-tracker",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://verdantgreeny.github.io/olympic-medal-tracker/",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
+    "gh-pages": "^6.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -25,4 +29,5 @@
     "globals": "^15.14.0",
     "vite": "^6.0.5"
   }
+
 }
