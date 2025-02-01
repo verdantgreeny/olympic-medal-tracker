@@ -58,5 +58,5 @@
 <br />
 
 
-#### 배포된 링크 (배포시도중) : [링크](https://verdantgreeny.github.io/olympic-medal-tracker/)
-#### KPT 회고 : []( )
+#### 배포된 링크 (배포성공❤️) : [링크](https://verdantgreeny.github.io/olympic-medal-tracker/)
+#### KPT 회고 : [KPT회고]( https://velog.io/@verdantgreeny/개인-프로젝트-Olympic-Medal-Tracker-최종-KPT-회고)
