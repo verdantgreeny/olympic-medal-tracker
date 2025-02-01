@@ -1,11 +1,8 @@
-import {useState} from "react";
+import { useState } from "react";
 import Button from "./Button";
 
 const InputBox = function (props) {
-  const {
-    countries,
-    setCountries
-  } = props;
+  const { countries, setCountries } = props;
 
   const [countryName, setCountryName] = useState(""); //입력값을 담을 상태
   const [gold, setGold] = useState("");
@@ -22,8 +19,8 @@ const InputBox = function (props) {
 
   //입력 처리의 적정성 검증
   const verify = function (countryName, gold, silver, bronze) {
-    if (!countryName || /\d/.test(countryName)) { //!Number(countryName)은 중간 숫자를 인지 못함
-      ///\d/  : 숫자 하나를 뜻하는 정규식 , test(str): str에 대해 정규식 패턴을 확인해 true/false 여부를 반환 
+    if (!countryName || /\d/.test(countryName)) {
+      ///\d/  : 숫자 하나를 뜻하는 정규식 , test(str): str에 대해 정규식 패턴을 확인해 true/false 여부를 반환
       alert("국가이름을 입력해주세요");
       return false;
     } else if (!gold || !silver || !bronze) {
@@ -66,12 +63,10 @@ const InputBox = function (props) {
     );
     if (addedCountry) {
       alert(`${newCountry.countryName}은(는) 이미 등록된 국가입니다.`);
-      return false;
     } else {
       setCountries([...countries, newCountry]);
       alert(`"${newCountry.countryName}" 등록`);
       reset();
-      return false ;
     }
   };
 
@@ -90,6 +85,7 @@ const InputBox = function (props) {
           gold: gold,
           silver: silver,
           bronze: bronze,
+          total: Number(gold) + Number(silver) + Number(bronze), 
         };
       } else {
         return c;
@@ -98,20 +94,15 @@ const InputBox = function (props) {
 
     if (!verify(countryName, gold, silver, bronze)) {
       reset();
-      return;
     }
     setCountries(updateCountryList);
     alert(`${updateCountry.countryName} 업데이트 완료`);
     reset();
-    return;
   };
-
-
-
 
   return (
     <form className="input-form">
-      <div className="input-box">
+      <div htmlFor="countryName" className="input-box">
         <div>국가명</div>
         <input
           value={countryName}
@@ -148,11 +139,8 @@ const InputBox = function (props) {
         />
       </div>
       <div>
-        <Button type="submit" onClick={addCountryHandler}>
-          {" "}
-          추가{" "}
-        </Button>
-        <Button type="submit" onClick={updateCountryHandler}>
+        <Button type="submit" onClick={addCountryHandler}> 추가 </Button>
+        <Button type="submot" onClick={updateCountryHandler}>
           {" "}
           업데이트{" "}
         </Button>

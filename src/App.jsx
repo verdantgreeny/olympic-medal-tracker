@@ -6,62 +6,45 @@ import Radio from "./components/Radio";
 const App = () => {
   const [countries, setCountries] = useState(saveCountries);
   //로컬스토리지
-  //useEffect : sideEffect를 처리하기 위해 사용, 매번 컴포넌트가 렌더링 될 때 특정 조건에 의존하여 수행되며, 컴포넌트가 최대한 순수 함수를 유지할 수 있도록 도와주는 함수 
+  //useEffect : sideEffect를 처리하기 위해 사용, 매번 컴포넌트가 렌더링 될 때 특정 조건에 의존하여 수행되며, 컴포넌트가 최대한 순수 함수를 유지할 수 있도록 도와주는 함수
   //sideEffect: 함수 내 특정 동작이 함수 외부에 영향을 끼쳐, 프로그램의 동작을 이해하기 어렵게 만드는 행위 (서버와의 통신, setTimeout, setInterval, 리액트 외부와의 상호작용)
   useEffect(() => {
     localStorage.setItem("countries", JSON.stringify(countries));
   }, [countries]);
 
   function saveCountries() {
-    let savedCountires = JSON.parse(localStorage.getItem("countries"));
-    return savedCountires || [];
+    let savedCountries = JSON.parse(localStorage.getItem("countries"));
+    return savedCountries || [];
   }
 
-  //정렬 옵션 - 원했던 구현 실패
+  //정렬 옵션
   const [selectRadio, setSelectRadio] = useState("1");
-  const handleChange = (e) => { 
+  const handleChange = (e) => {
     setSelectRadio(e.target.value);
-    changeSortOption();
-    return
-  }
-
-  // useEffect(()=>{  //[selectRadio]를 [selectRadio,countries]로 바꾸면 원했던 구현결과를 얻지만 무한루프에 빠짐
-  //   if (selectRadio === "1") { 
-  //     sortMedals(); 
-  //     return 
-  //   } else {
-  //     sortTotalMedals(); 
-  //     return 
-  //   }  
-  // },[selectRadio])
+  };
 
   const changeSortOption = () => {
-    console.log(selectRadio);
-    if (selectRadio === "1") { 
-      sortTotalMedals()   
+    if (selectRadio === "1") {
+      const sortedMedals = countries.sort((a, b) => {
+        if (+a.gold !== +b.gold) {
+          return b.gold - a.gold;
+        } else if (+a.silver !== +b.silver) {
+          return b.silver - a.silver;
+        } else {
+          return b.bronze - a.bronze;
+        }
+      });
+      return sortedMedals;
     } else {
-      sortMedals(); 
-    }  
+      const sortedMedals = countries.sort((a, b) => {
+        const aTotal = Number(a.gold) + Number(a.silver) + Number(a.bronze);
+        const bTotal = Number(b.gold) + Number(b.silver) + Number(b.bronze);
+        return bTotal - aTotal;
+      });
+      return sortedMedals
+    }
   };
- 
-  const sortMedals = () => {
-    countries.sort((a, b) => {
-      if (+a.gold !== +b.gold) {
-        return b.gold - a.gold;
-      } else if (+a.silver !== +b.silver) {
-        return b.silver - a.silver;
-      } else {
-        return b.bronze - a.bronze;
-      }
-    });
-    return setCountries([...countries]);
-  };
-
-  const sortTotalMedals = () => {
-    countries.sort((a, b) => b.total - a.total);
-    return setCountries([...countries]);
-  };
-
+  
   return (
     <>
       <header>
@@ -70,16 +53,12 @@ const App = () => {
       <main>
         <section>
           {/* 인풋부분 */}
-          <InputBox
-            countries={countries}
-            setCountries={setCountries}
-          />
+          <InputBox countries={countries} setCountries={setCountries} />
           <Radio
             name="medalsSort"
             value="1"
             checked={selectRadio === "1"}
             onChange={handleChange}
-            
           >
             {" "}
             금은동순 정렬{" "}
@@ -89,7 +68,6 @@ const App = () => {
             value="2"
             checked={selectRadio === "2"}
             onChange={handleChange}
-          
           >
             {" "}
             총메달순 정렬{" "}
@@ -111,7 +89,7 @@ const App = () => {
               </tr>
             </thead>
             <tbody>
-              {countries.map((country) => {
+              {changeSortOption()&&changeSortOption().map((country) => {
                 return (
                   <MedalList
                     countries={countries}
