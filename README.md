@@ -59,4 +59,4 @@
 
 
 #### 배포된 링크 (배포시도중) : [링크](https://verdantgreeny.github.io/olympic-medal-tracker/)
-#### KPT 회고 : []()
+#### KPT 회고 : []( )
