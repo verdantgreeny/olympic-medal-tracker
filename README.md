@@ -57,25 +57,6 @@
 
 <br />
 
-## 📁 프로젝트 구조
-```markdown
-📁
-|- src/
-|   |- App.jsx
-|   |- index.css
-|   |
-|   |- components/
-|   |   |- Button.jsx
-|   |   |- MedalForm.jsx
-|   |   |- MedalList.jsx
-|   |   |- Radio.jsx
-|
-
-```
-
-<br />
-
-
 
 #### 배포된 링크 (배포시도중) : [](https://verdantgreeny.github.io/olympic-medal-tracker/)
 #### KPT 회고 : []()
